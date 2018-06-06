@@ -1,7 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-
+//array to hold opened cards
+let openCards = [];
 
 /*
  * Display the cards on the page
@@ -30,19 +31,25 @@ document.querySelector(".deck").addEventListener("click", clickedCard);
 
 //toggle card to show
 function clickedCard(){
-  const clickLocation = event.target;
-  if (clickLocation.classList.contains("card")) {
-    clickLocation.classList.toggle("open");
-    clickLocation.classList.toggle("show");
+  const element = event.target;
+  if (element.classList.contains("card")) {
+    element.classList.toggle("open");
+    element.classList.toggle("show");
+    openedCard(element);
   };
+}
+
+function openedCard(element){
+  openCards.push(element);
+  console.log(openCards);
 }
 
 
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ * DONE --> set up the event listener for a card. If a card is clicked:
+ * DONE --> - display the card's symbol (put this functionality in another function that you call from this one)
+ * DONE --> - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
