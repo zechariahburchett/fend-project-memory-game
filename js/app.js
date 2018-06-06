@@ -4,6 +4,9 @@
 //array to hold opened cards
 let openCards = [];
 
+//store first clicked cards
+let firstCard = null;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -35,13 +38,33 @@ function clickedCard(){
   if (element.classList.contains("card")) {
     element.classList.toggle("open");
     element.classList.toggle("show");
-    openedCard(element);
+    openedCard(element,element.lastElementChild.className);
   };
 }
+//TODO make it so that second element will still show for short time when incorrect
+function openedCard(element, elementClass){
+  openCards.push(elementClass);
+  console.log(openCards.length);
+  if (openCards.length === 1) {
+    firstCard = element;
+  }
+  if (openCards.length === 2) {
+    console.log(openCards);
+    console.log (openCards[0]);
+    console.log (openCards[1]);
+    if (openCards[0] === openCards[1]){
+      console.log('They match!!!');
+    }
+    else {
+      console.log('No match!! Set back to hidden!!')
+      element.classList.remove("open");
+      element.classList.remove("show");
+      firstCard.classList.remove("open");
+      firstCard.classList.remove("show");
+    }
 
-function openedCard(element){
-  openCards.push(element);
-  console.log(openCards);
+    openCards = [];
+  }
 }
 
 
