@@ -4,8 +4,12 @@
 //array to hold opened cards
 let openCards = [];
 
-//store first clicked cards
+//array to hold matched openCards
+let matchedCards = [];
+
+//create variables to store cards
 let firstCard = null;
+let currentCard = null;
 
 /*
  * Display the cards on the page
@@ -34,47 +38,65 @@ document.querySelector(".deck").addEventListener("click", clickedCard);
 
 //toggle card to show
 function clickedCard(){
-  const element = event.target;
-  if (element.classList.contains("card")) {
-    element.classList.toggle("open");
-    element.classList.toggle("show");
-    openedCard(element,element.lastElementChild.className);
-  };
+  currentCard = event.target;
+  if (currentCard.classList.contains("match")) {
+    //do nothing this card is already matched
+    console.log ("already a match")
+  }
+  else if (currentCard.classList.contains("card")) {
+    currentCard.classList.toggle("open");
+    currentCard.classList.toggle("show");
+    openedCard(currentCard,currentCard.lastElementChild.className);
+  }
 }
 //TODO make it so that second element will still show for short time when incorrect
-function openedCard(element, elementClass){
-  openCards.push(elementClass);
+function openedCard(currentCard, currentCardClass){
+  openCards.push(currentCardClass);
   console.log(openCards.length);
   if (openCards.length === 1) {
-    firstCard = element;
+    firstCard = currentCard;
   }
   if (openCards.length === 2) {
     console.log(openCards);
     console.log (openCards[0]);
     console.log (openCards[1]);
     if (openCards[0] === openCards[1]){
-      console.log('They match!!!');
+      //console.log('They match!!!');
+      isAMatch();
     }
     else {
-      console.log('No match!! Set back to hidden!!')
-      element.classList.remove("open");
-      element.classList.remove("show");
-      firstCard.classList.remove("open");
-      firstCard.classList.remove("show");
+      //console.log('No match!! Set back to hidden!!')
+      notAMatch();
     }
-
     openCards = [];
   }
 }
 
+function isAMatch() {
+  currentCard.classList.toggle("match");
+  firstCard.classList.toggle("match");
+  matchedCards.push(currentCard);
+  matchedCards.push(firstCard);
+  if (matchedCards.length === 16) {
+    //call win function
+    console.log("You Win!!!");
+  }
+}
+
+function notAMatch(){
+  currentCard.classList.remove("open");
+  currentCard.classList.remove("show");
+  firstCard.classList.remove("open");
+  firstCard.classList.remove("show");
+}
 
 
 /*
  * DONE --> set up the event listener for a card. If a card is clicked:
  * DONE --> - display the card's symbol (put this functionality in another function that you call from this one)
  * DONE --> - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ * DONE --> - if the list already has another card, check to see if the two cards match
+ * DONE -->   + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
