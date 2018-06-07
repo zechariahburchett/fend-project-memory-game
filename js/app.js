@@ -60,8 +60,7 @@ function openedCard(currentCard, currentCardClass){
     firstCard = currentCard;
   }
   if (openCards.length === 2) {
-    moveCounter++;
-    updateMoves(moveCounter);
+    updateMoves();
     console.log(openCards);
     console.log (openCards[0]);
     console.log (openCards[1]);
@@ -95,7 +94,8 @@ function notAMatch(){
   firstCard.classList.remove("show");
 }
 
-function updateMoves(moveCounter){
+function updateMoves(){
+  moveCounter++;
   document.querySelector(".moves").innerHTML=moveCounter;
 }
 
