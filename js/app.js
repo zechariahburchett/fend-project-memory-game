@@ -14,9 +14,6 @@ let moveCounter = 0;
 let firstCard = null;
 let currentCard = null;
 
-//boolean to allow event clicks
-let allowClicks = false;
-
 /*
  * //TODO Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -47,15 +44,16 @@ function clickedCard(){
   currentCard = event.target;
   if (currentCard.classList.contains("match")) {
     //do nothing this card is already matched
-    console.log ("already a match")
   }
   else if (currentCard.classList.contains("card")) {
+    //show card
     currentCard.classList.toggle("open");
     currentCard.classList.toggle("show");
+    currentCard.classList.toggle("disabled");
     openedCard(currentCard,currentCard.lastElementChild.className);
   }
 }
-//TODO make it so that second element will still show for short time when incorrect
+//compare the cards for a match
 function openedCard(currentCard, currentCardClass){
   openCards.push(currentCardClass);
   console.log(openCards.length);
@@ -68,11 +66,9 @@ function openedCard(currentCard, currentCardClass){
     console.log (openCards[0]);
     console.log (openCards[1]);
     if (openCards[0] === openCards[1]){
-      //console.log('They match!!!');
       isAMatch();
     }
     else {
-      //console.log('No match!! Set back to hidden!!')
       notAMatch();
     }
     openCards = [];
@@ -86,7 +82,7 @@ function isAMatch() {
   matchedCards.push(firstCard);
   if (matchedCards.length === 16) {
     //call win function
-    console.log("You Win!!!");
+    win();
   }
 }
 
@@ -95,8 +91,10 @@ function notAMatch(){
   setTimeout(function(){
     currentCard.classList.remove("open");
     currentCard.classList.remove("show");
+    currentCard.classList.remove("disabled");
     firstCard.classList.remove("open");
     firstCard.classList.remove("show");
+    firstCard.classList.remove("disabled");
     document.querySelector(".deck").addEventListener("click", clickedCard);
   },600);
 }
@@ -104,6 +102,10 @@ function notAMatch(){
 function updateMoves(){
   moveCounter++;
   document.querySelector(".moves").innerHTML=moveCounter;
+}
+
+function win(){
+  window.alert("You Win!!!");
 }
 
 /*
