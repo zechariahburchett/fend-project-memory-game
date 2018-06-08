@@ -13,6 +13,7 @@ let moveCounter = 0;
 //create variables to store cards
 let firstCard = null;
 let currentCard = null;
+let firstClickClass = null;
 
 /*
  * //TODO Display the cards on the page
@@ -39,6 +40,9 @@ function shuffle(array) {
 //add event listener on to deck for the cards
 document.querySelector(".deck").addEventListener("click", clickedCard);
 
+//add event listener for reset button
+document.querySelector(".restart").addEventListener("click", reset);
+
 //toggle card to show
 function clickedCard(){
   currentCard = event.target;
@@ -59,6 +63,7 @@ function openedCard(currentCard, currentCardClass){
   console.log(openCards.length);
   if (openCards.length === 1) {
     firstCard = currentCard;
+    firstClickClass = currentCardClass;
   }
   if (openCards.length === 2) {
     updateMoves();
@@ -79,7 +84,7 @@ function isAMatch() {
   currentCard.classList.toggle("match");
   firstCard.classList.toggle("match");
   matchedCards.push(currentCard);
-  matchedCards.push(firstCard);
+  matchedCards.push(firstClickClass);
   if (matchedCards.length === 16) {
     //call win function
     win();
@@ -105,8 +110,38 @@ function updateMoves(){
 }
 
 function win(){
-  $('#winModal').modal('show')
+  document.querySelector(".modal-body").innerHTML="Moves Made: " + moveCounter +
+    "<br />" + "Time Taken: ";
+  $('#winModal').modal('show');
 }
+
+function reset(){
+  moveCounter = 0;
+  firstCard = null;
+  currentCard = null;
+  document.querySelector(".moves").innerHTML=moveCounter;
+  let cards = document.getElementsByClassName('card');
+  let cardsEl;
+    for (let i = 0; i < cards.length; i++){
+      cardsEl = cards[i].lastElementChild.className;
+      console.log('current card ' + cardsEl);
+      console.log('open cards ' + openCards);
+      console.log('matched cards ' + matchedCards);
+      if (openCards.includes(cardsEl)) {
+        cards[i].classList.remove('open');
+        cards[i].classList.remove('show-card');
+        cards[i].classList.remove('disabled');
+      }
+      else if (matchedCards.includes(cardsEl)) {
+        cards[i].classList.remove('open');
+        cards[i].classList.remove('show-card');
+        cards[i].classList.remove('match');
+        cards[i].classList.remove('disabled');
+      }
+      }
+      openCards = [];
+      matchedCards = [];
+    }
 
 /*
  * DONE --> set up the event listener for a card. If a card is clicked:
