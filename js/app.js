@@ -48,7 +48,7 @@ function clickedCard(){
   else if (currentCard.classList.contains("card")) {
     //show card
     currentCard.classList.toggle("open");
-    currentCard.classList.toggle("show");
+    currentCard.classList.toggle("show-card");
     currentCard.classList.toggle("disabled");
     openedCard(currentCard,currentCard.lastElementChild.className);
   }
@@ -90,10 +90,10 @@ function notAMatch(){
   document.querySelector(".deck").removeEventListener("click", clickedCard);
   setTimeout(function(){
     currentCard.classList.remove("open");
-    currentCard.classList.remove("show");
+    currentCard.classList.remove("show-card");
     currentCard.classList.remove("disabled");
     firstCard.classList.remove("open");
-    firstCard.classList.remove("show");
+    firstCard.classList.remove("show-card");
     firstCard.classList.remove("disabled");
     document.querySelector(".deck").addEventListener("click", clickedCard);
   },600);
@@ -105,7 +105,7 @@ function updateMoves(){
 }
 
 function win(){
-  window.alert("You Win!!!");
+  $('#winModal').modal('show')
 }
 
 /*

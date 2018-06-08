@@ -71,7 +71,7 @@ h1 {
     cursor: default;
 }
 
-.deck .card.show {
+.deck .card.show-card {
     font-size: 33px;
 }
 
@@ -79,6 +79,10 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 /*
@@ -107,3 +111,13 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for modal
+ */
+ .modal-dialog {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%) !important;
+     }
