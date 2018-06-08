@@ -1,19 +1,14 @@
 /*
  * //TODO Create a list that holds all of your cards
  */
-//array to hold opened cards
-let openCards = [];
-
-//array to hold matched openCards
-let matchedCards = [];
-
-//variable to store number of Moves
-let moveCounter = 0;
-
-//create variables to store cards
-let firstCard = null;
-let currentCard = null;
-let firstClickClass = null;
+ //initialize variables
+let openCards = []; //array to hold opened cards
+let matchedCards = []; //array to hold matched openCards
+let moveCounter = 0; //variable to store number of Moves
+let firstClick = null; //store dom element for 1st click
+let currentClick = null; //store dom element for active click
+let firstClickIcon = null; //store the 1st clicks icon element
+let currentClickIcon = null; //store the current clicks icon element
 
 /*
  * //TODO Display the cards on the page
@@ -24,8 +19,8 @@ let firstClickClass = null;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -33,115 +28,100 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 
-//add event listener on to deck for the cards
+//add event listeners
 document.querySelector(".deck").addEventListener("click", clickedCard);
-
-//add event listener for reset button
 document.querySelector(".restart").addEventListener("click", reset);
 
-//toggle card to show
-function clickedCard(){
-  currentCard = event.target;
-  if (currentCard.classList.contains("match")) {
+//toggle card to show when clicked
+function clickedCard() {
+  currentClick = event.target;
+  if (currentClick.classList.contains("match")) {
     //do nothing this card is already matched
-  }
-  else if (currentCard.classList.contains("card")) {
-    //show card
-    currentCard.classList.toggle("open");
-    currentCard.classList.toggle("show-card");
-    currentCard.classList.toggle("disabled");
-    openedCard(currentCard,currentCard.lastElementChild.className);
+  } else if (currentClick.classList.contains("card")) {
+    //show card and disable it from being clicked twice
+    currentClick.classList.add("open", "show-card", "disabled");
+    CurrentClickIcon = currentClick.lastElementChild.className;
+    openedCard();
   }
 }
-//compare the cards for a match
-function openedCard(currentCard, currentCardClass){
-  openCards.push(currentCardClass);
-  console.log(openCards.length);
+
+//function to compare cards
+function openedCard() {
+  openCards.push(CurrentClickIcon);
+  //there is only one card so set store it's dom value and fa icon
   if (openCards.length === 1) {
-    firstCard = currentCard;
-    firstClickClass = currentCardClass;
+    firstClick = currentClick;
+    firstClickIcon = CurrentClickIcon;
   }
+  //there are 2 cards. update number of moves + 1
   if (openCards.length === 2) {
     updateMoves();
-    console.log(openCards);
-    console.log (openCards[0]);
-    console.log (openCards[1]);
-    if (openCards[0] === openCards[1]){
+    //check if the 2 cards match
+    if (openCards[0] === openCards[1]) {
+      //if so go to match function
       isAMatch();
-    }
-    else {
+    } else {
+      //else go to not a match function
       notAMatch();
     }
     openCards = [];
   }
 }
 
+//this will add class of match and check if all cards have been matched
 function isAMatch() {
-  currentCard.classList.toggle("match");
-  firstCard.classList.toggle("match");
-  matchedCards.push(currentCard);
-  matchedCards.push(firstClickClass);
+  currentClick.classList.add("match");
+  firstClick.classList.add("match");
+  matchedCards.push(currentClickIcon);
+  matchedCards.push(firstClickIcon);
+  //check if all cards have been matched
   if (matchedCards.length === 16) {
     //call win function
     win();
   }
 }
 
-function notAMatch(){
+function notAMatch() {
   document.querySelector(".deck").removeEventListener("click", clickedCard);
-  setTimeout(function(){
-    currentCard.classList.remove("open");
-    currentCard.classList.remove("show-card");
-    currentCard.classList.remove("disabled");
-    firstCard.classList.remove("open");
-    firstCard.classList.remove("show-card");
-    firstCard.classList.remove("disabled");
+  setTimeout(function() {
+    currentClick.classList.remove("open", "show-card", "disabled");
+    firstClick.classList.remove("open", "show-card", "disabled");
     document.querySelector(".deck").addEventListener("click", clickedCard);
-  },600);
+  }, 600);
 }
 
-function updateMoves(){
+function updateMoves() {
   moveCounter++;
-  document.querySelector(".moves").innerHTML=moveCounter;
+  document.querySelector(".moves").innerHTML = moveCounter;
 }
 
-function win(){
-  document.querySelector(".modal-body").innerHTML="Moves Made: " + moveCounter +
+function win() {
+  document.querySelector(".modal-body").innerHTML = "Moves Made: " + moveCounter +
     "<br />" + "Time Taken: ";
   $('#winModal').modal('show');
 }
 
-function reset(){
+function reset() {
   moveCounter = 0;
-  firstCard = null;
-  currentCard = null;
-  document.querySelector(".moves").innerHTML=moveCounter;
+  firstClick = null;
+  currentClick = null;
+  document.querySelector(".moves").innerHTML = moveCounter;
   let cards = document.getElementsByClassName('card');
   let cardsEl;
-    for (let i = 0; i < cards.length; i++){
-      cardsEl = cards[i].lastElementChild.className;
-      console.log('current card ' + cardsEl);
-      console.log('open cards ' + openCards);
-      console.log('matched cards ' + matchedCards);
-      if (openCards.includes(cardsEl)) {
-        cards[i].classList.remove('open');
-        cards[i].classList.remove('show-card');
-        cards[i].classList.remove('disabled');
-      }
-      else if (matchedCards.includes(cardsEl)) {
-        cards[i].classList.remove('open');
-        cards[i].classList.remove('show-card');
-        cards[i].classList.remove('match');
-        cards[i].classList.remove('disabled');
-      }
-      }
-      openCards = [];
-      matchedCards = [];
+  for (let i = 0; i < cards.length; i++) {
+    cardsEl = cards[i].lastElementChild.className;
+    if (openCards.includes(cardsEl)) {
+      cards[i].classList.remove("open", "show-card", "disabled");
+    } else if (matchedCards.includes(cardsEl)) {
+      cards[i].classList.remove("open", "show-card", "match", "disabled");
     }
+  }
+  openCards = [];
+  matchedCards = [];
+}
 
 /*
  * DONE --> set up the event listener for a card. If a card is clicked:
