@@ -121,3 +121,11 @@ h1 {
          left: 50%;
          transform: translate(-50%, -50%) !important;
      }
+
+/*
+ * Styles for timer
+ */
+ .myTimer{
+   left: 45%;
+   position: fixed;
+ }

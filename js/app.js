@@ -9,6 +9,12 @@ let firstClick = null; //store dom element for 1st click
 let currentClick = null; //store dom element for active click
 let firstClickIcon = null; //store the 1st clicks icon element
 let currentClickIcon = null; //store the current clicks icon element
+let seconds = 0; //store seconds gone by
+let minutes = 0; //store minutes gone by
+let hours = 0; //store hours gone by
+let timer;
+let timerOn = false;
+let timeOutput;
 
 /*
  * //TODO Display the cards on the page
@@ -37,6 +43,10 @@ document.querySelector(".restart").addEventListener("click", reset);
 
 //toggle card to show when clicked
 function clickedCard() {
+  if (timerOn === false) {
+    timerOn = true;
+    setTimer();
+  }
   currentClick = event.target;
   if (currentClick.classList.contains("match")) {
     //do nothing this card is already matched
@@ -99,15 +109,21 @@ function updateMoves() {
 }
 
 function win() {
+  clearTimer();
   document.querySelector(".modal-body").innerHTML = "Moves Made: " + moveCounter +
-    "<br />" + "Time Taken: ";
+    "<br />" + timeOutput;
   $('#winModal').modal('show');
 }
 
 function reset() {
+  clearTimer();
   moveCounter = 0;
   firstClick = null;
   currentClick = null;
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
+  timerOn = false;
   document.querySelector(".moves").innerHTML = moveCounter;
   let cards = document.getElementsByClassName('card');
   let cardsEl;
@@ -121,6 +137,59 @@ function reset() {
   }
   openCards = [];
   matchedCards = [];
+}
+
+//calculate time gone by 1 sec at a time
+function setTimer() {
+ timer = setInterval(function(){
+   if (seconds === 60){
+     minutes++;
+     seconds = 0;
+   }
+   if (minutes === 60){
+     hours++;
+     minutes = 0;
+   }
+    seconds++
+    timerOutput();
+    console.log("Time: " + hours + " " + minutes + " " + seconds);
+  },1000);
+}
+
+//stop the time
+function clearTimer(){
+  clearInterval(timer);
+}
+
+function timerOutput(){
+  //determine hours output
+  if (hours === 1){
+    timeOutput = "Time Taken: " + hours + " hr ";
+  }
+  else if (hours > 1) {
+    timeOutput = "Time Taken: " + hours + " hrs ";
+  }
+  else if (hours === 0){
+    timeOutput = "Time Taken: ";
+  }
+  //determine minutes output
+  if (minutes === 0 && hours === 0){
+    //do nothing
+  }
+  else if (minutes === 1){
+    timeOutput += minutes + " min ";
+  }
+  else if (minutes != 1){
+    timeOutput += minutes + " mins ";
+  }
+  //determine seconds output
+  if (seconds === 1){
+    timeOutput += seconds + " sec";
+  }
+  else {
+    timeOutput += seconds + " secs";
+  }
+  document.querySelector(".myTimer").innerHTML = timeOutput;
 }
 
 /*
