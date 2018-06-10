@@ -15,6 +15,7 @@ let hours = 0; //store hours gone by
 let timer;
 let timerOn = false;
 let timeOutput;
+let winStars;
 
 /*
  * //TODO Display the cards on the page
@@ -105,13 +106,15 @@ function notAMatch() {
 
 function updateMoves() {
   moveCounter++;
-  document.querySelector(".moves").innerHTML = moveCounter;
+  document.querySelector(".moves").innerHTML = "Moves: " + moveCounter;
+  rating();
 }
 
 function win() {
   clearTimer();
-  document.querySelector(".modal-body").innerHTML = "Moves Made: " + moveCounter +
-    "<br />" + timeOutput;
+  generateWinStars();
+  document.querySelector(".modal-body").lastElementChild.innerHTML = "Moves Made: " + moveCounter +
+    "<br />" + timeOutput + "<br />" + "Rating: " + winStars;
   $('#winModal').modal('show');
 }
 
@@ -123,8 +126,9 @@ function reset() {
   seconds = 0;
   minutes = 0;
   hours = 0;
+  document.querySelector(".myTimer").innerHTML = "Time Taken: 0 secs";
   timerOn = false;
-  document.querySelector(".moves").innerHTML = moveCounter;
+  document.querySelector(".moves").innerHTML = "Moves: " + moveCounter;
   let cards = document.getElementsByClassName('card');
   let cardsEl;
   for (let i = 0; i < cards.length; i++) {
@@ -152,7 +156,6 @@ function setTimer() {
    }
     seconds++
     timerOutput();
-    console.log("Time: " + hours + " " + minutes + " " + seconds);
   },1000);
 }
 
@@ -190,6 +193,29 @@ function timerOutput(){
     timeOutput += seconds + " secs";
   }
   document.querySelector(".myTimer").innerHTML = timeOutput;
+}
+
+function rating(){
+  if (moveCounter < 11){
+    //do nothing 3 stars
+  } else if (moveCounter >= 11 && moveCounter < 20) {
+    for (let e of document.querySelectorAll('.stars')) e.children[2].style.visibility = 'hidden';
+    //document.getElementsByClassName('stars').style.display = 'none';
+  } else if (moveCounter >= 20) {
+    for (let e of document.querySelectorAll('.stars')) e.children[1].style.visibility = 'hidden';
+    //document.getElementsByClassName('stars').style.display = 'none';
+    //document.getElementsByClassName('stars').style.display = 'none';
+  }
+}
+
+function generateWinStars(){
+  if (moveCounter < 11){
+    winStars = `<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>`;
+  } else if (moveCounter >= 11 && moveCounter < 20) {
+    winStars = `<i class="fa fa-star"></i><i class="fa fa-star"></i>`;
+  } else if (moveCounter >= 20) {
+    winStars = `<i class="fa fa-star"></i>`;
+  }
 }
 
 /*
