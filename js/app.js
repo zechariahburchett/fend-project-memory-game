@@ -2,7 +2,7 @@
 let card = document.getElementsByClassName("card");
 let allCards = [...card];
 
- //initialize variables
+//initialize variables
 let openCards = []; //array to hold opened cards
 let matchedCards = []; //array to hold matched openCards
 let moveCounter = 0; //variable to store number of Moves
@@ -25,12 +25,12 @@ window.onload = function() {
   shuffleCards();
 };
 
-function shuffleCards(){
-   shuffledCards = shuffle(allCards);
-   for (let i= 0; i < shuffledCards.length; i++){
-         deck.appendChild(shuffledCards[i]);
-      }
-   }
+function shuffleCards() {
+  shuffledCards = shuffle(allCards);
+  for (let i = 0; i < shuffledCards.length; i++) {
+    deck.appendChild(shuffledCards[i]);
+  }
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -158,60 +158,55 @@ function reset() {
 
 //calculate time gone by 1 sec at a time
 function setTimer() {
- timer = setInterval(function(){
-   if (seconds === 60){
-     minutes++;
-     seconds = 0;
-   }
-   if (minutes === 60){
-     hours++;
-     minutes = 0;
-   }
+  timer = setInterval(function() {
+    if (seconds === 60) {
+      minutes++;
+      seconds = 0;
+    }
+    if (minutes === 60) {
+      hours++;
+      minutes = 0;
+    }
     seconds++
     timerOutput();
-  },1000);
+  }, 1000);
 }
 
 //stop the time
-function clearTimer(){
+function clearTimer() {
   clearInterval(timer);
 }
 
 //timer function for scorecard
-function timerOutput(){
+function timerOutput() {
   //determine hours output
-  if (hours === 1){
+  if (hours === 1) {
     timeOutput = "Time Taken: " + hours + " hr ";
-  }
-  else if (hours > 1) {
+  } else if (hours > 1) {
     timeOutput = "Time Taken: " + hours + " hrs ";
-  }
-  else if (hours === 0){
+  } else if (hours === 0) {
     timeOutput = "Time Taken: ";
   }
   //determine minutes output
-  if (minutes === 0 && hours === 0){
+  if (minutes === 0 && hours === 0) {
     //do nothing
-  }
-  else if (minutes === 1){
+  } else if (minutes === 1) {
     timeOutput += minutes + " min ";
-  }
-  else if (minutes != 1){
+  } else if (minutes != 1) {
     timeOutput += minutes + " mins ";
   }
   //determine seconds output
-  if (seconds === 1){
+  if (seconds === 1) {
     timeOutput += seconds + " sec";
-  }
-  else {
+  } else {
     timeOutput += seconds + " secs";
   }
   document.querySelector(".myTimer").innerHTML = timeOutput;
 }
 
 //determine rating stars to show in scoreboard
-function rating(){
-  if (moveCounter < 11){
+function rating() {
+  if (moveCounter < 11) {
     //do nothing -- 3 stars
   } else if (moveCounter >= 11 && moveCounter < 20) {
     for (let e of document.querySelectorAll('.stars')) e.children[2].style.visibility = 'hidden';
@@ -221,8 +216,8 @@ function rating(){
 }
 
 //store HTML code to display on win screen
-function generateWinStars(){
-  if (moveCounter < 11){
+function generateWinStars() {
+  if (moveCounter < 11) {
     winStars = `<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>`;
   } else if (moveCounter >= 11 && moveCounter < 20) {
     winStars = `<i class="fa fa-star"></i><i class="fa fa-star"></i>`;

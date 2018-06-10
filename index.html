@@ -1,108 +1,111 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>Matching Game</title>
-    <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/app.css">
+  <meta charset="utf-8">
+  <title>Matching Game</title>
+  <meta name="description" content="">
+  <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/app.css">
 </head>
+
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Matching Game</h1>
-        </header>
+  <div class="container">
+    <header>
+      <h1>Matching Game</h1>
+    </header>
 
-        <section class="score-panel">
-        	<ul class="stars">
-        		<li>Rating: <i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+    <section class="score-panel">
+      <ul class="stars">
+        <li>Rating: <i class="fa fa-star"></i></li>
+        <li><i class="fa fa-star"></i></li>
+        <li><i class="fa fa-star"></i></li>
+      </ul>
 
-        	<span class="moves">Moves: 0</span>
-          <span class="myTimer">Time Taken: 0 secs</span>
-           <div class="restart">
-        		 <i class="fa fa-repeat"></i>
-        	 </div>
-        </section>
-
-        <ul class="deck">
-            <li class="card">
-                <i class="fa fa-diamond"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-anchor"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-anchor"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-diamond"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
-            </li>
-        </ul>
-    </div>
-
-<!-- Modal with help from https://www.w3schools.com/bootstrap/bootstrap_ref_js_modal.asp-->
-<div id="winModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Congratulations! You Win!</h4>
+      <span class="moves">Moves: 0</span>
+      <span class="myTimer">Time Taken: 0 secs</span>
+      <div class="restart">
+        <i class="fa fa-repeat"></i>
       </div>
-      <div class="modal-body">
-        <p>
-        </p>
+    </section>
+
+    <ul class="deck">
+      <li class="card">
+        <i class="fa fa-diamond"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-paper-plane-o"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-anchor"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-bolt"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-cube"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-anchor"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-leaf"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-bicycle"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-diamond"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-bomb"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-leaf"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-bomb"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-bolt"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-bicycle"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-paper-plane-o"></i>
+      </li>
+      <li class="card">
+        <i class="fa fa-cube"></i>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Modal with help from https://www.w3schools.com/bootstrap/bootstrap_ref_js_modal.asp-->
+  <div id="winModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Congratulations! You Win!</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="restartWin" data-dismiss="modal">Restart Game</button>
+        </div>
       </div>
-      <div class="modal-footer">
-      <button type="button" class="restartWin" data-dismiss="modal">Restart Game</button>
-    </div>
     </div>
   </div>
-</div>
 
-<script src="js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
+
 </html>
