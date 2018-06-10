@@ -1,6 +1,7 @@
-/*
- * //TODO Create a list that holds all of your cards
- */
+//list to hold all cards
+let card = document.getElementsByClassName("card");
+let allCards = [...card];
+
  //initialize variables
 let openCards = []; //array to hold opened cards
 let matchedCards = []; //array to hold matched openCards
@@ -16,13 +17,20 @@ let timer;
 let timerOn = false;
 let timeOutput;
 let winStars;
+const deck = document.querySelector(".deck");
+let shuffledCards;
 
-/*
- * //TODO Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+//shuffle the cards on load of web window
+window.onload = function() {
+  shuffleCards();
+};
+
+function shuffleCards(){
+   shuffledCards = shuffle(allCards);
+   for (let i= 0; i < shuffledCards.length; i++){
+         deck.appendChild(shuffledCards[i]);
+      }
+   }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -118,8 +126,11 @@ function win() {
   $('#winModal').modal('show');
 }
 
+//resets the game state to original state
 function reset() {
   clearTimer();
+  for (let e of document.querySelectorAll('.stars')) e.children[2].style.visibility = 'visible';
+  for (let e of document.querySelectorAll('.stars')) e.children[1].style.visibility = 'visible';
   moveCounter = 0;
   firstClick = null;
   currentClick = null;
@@ -141,6 +152,7 @@ function reset() {
   }
   openCards = [];
   matchedCards = [];
+  shuffleCards();
 }
 
 //calculate time gone by 1 sec at a time
@@ -164,6 +176,7 @@ function clearTimer(){
   clearInterval(timer);
 }
 
+//timer function for scorecard
 function timerOutput(){
   //determine hours output
   if (hours === 1){
@@ -195,19 +208,18 @@ function timerOutput(){
   document.querySelector(".myTimer").innerHTML = timeOutput;
 }
 
+//determine rating stars to show in scoreboard
 function rating(){
   if (moveCounter < 11){
-    //do nothing 3 stars
+    //do nothing -- 3 stars
   } else if (moveCounter >= 11 && moveCounter < 20) {
     for (let e of document.querySelectorAll('.stars')) e.children[2].style.visibility = 'hidden';
-    //document.getElementsByClassName('stars').style.display = 'none';
   } else if (moveCounter >= 20) {
     for (let e of document.querySelectorAll('.stars')) e.children[1].style.visibility = 'hidden';
-    //document.getElementsByClassName('stars').style.display = 'none';
-    //document.getElementsByClassName('stars').style.display = 'none';
   }
 }
 
+//store HTML code to display on win screen
 function generateWinStars(){
   if (moveCounter < 11){
     winStars = `<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>`;
@@ -217,14 +229,3 @@ function generateWinStars(){
     winStars = `<i class="fa fa-star"></i>`;
   }
 }
-
-/*
- * DONE --> set up the event listener for a card. If a card is clicked:
- * DONE --> - display the card's symbol (put this functionality in another function that you call from this one)
- * DONE --> - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- * DONE --> - if the list already has another card, check to see if the two cards match
- * DONE -->   + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- * DONE -->   + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- * DONE -->   + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- * //TODO   + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
