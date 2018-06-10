@@ -49,6 +49,7 @@ function shuffle(array) {
 //add event listeners
 document.querySelector(".deck").addEventListener("click", clickedCard);
 document.querySelector(".restart").addEventListener("click", reset);
+document.querySelector(".restartWin").addEventListener("click", reset);
 
 //toggle card to show when clicked
 function clickedCard() {
