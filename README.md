@@ -4,7 +4,7 @@ This is a browser based memory game
 ## Table of Contents
 
 * [Instructions](#Instructions)
-* [Project Notes](#Project Notes)
+* [Project Notes](#Project-Notes)
 
 ## Instructions
 
